@@ -7,6 +7,7 @@ let mongoose = require('mongoose')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var rolesRouter = require('./routes/roles');
 
 var app = express();
 
@@ -21,11 +22,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/roles', rolesRouter);
 app.use('/api/v1/products', require('./routes/products'));
 app.use('/api/v1/categories', require('./routes/categories'));
 
-mongoose.connect('mongodb://admin:admin123@localhost:27017/NNPTUD-C3?authSource=admin');
+mongoose.connect('mongodb://localhost:27017/NNPTUD-C3');
+
 mongoose.connection.on('connected', () => {
   console.log("connected");
 })
